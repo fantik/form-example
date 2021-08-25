@@ -118,7 +118,7 @@
 
     @include hover {
     .form-checkbox__icon {
-      border-color: $c-yellow;
+      border-color: $c-black;
     }
   }
   &.input-wrapper--small .form-checkbox__label {

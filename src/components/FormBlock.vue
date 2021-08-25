@@ -2,12 +2,13 @@
   <div class="form">
     <!-- form-hrader -->
     <div class="form-header">
-      <div class="form__title">{{title}}</div>
+      <div class="form__title">{{isSuccess ? 'Success' :title}}</div>
     </div>
 
     <form  
       ref="form"
       novalidate
+      v-if="!isSuccess"
     >
       <!-- form-body -->
       <div class="form-body">
@@ -59,7 +60,9 @@
           v-model="formData.personalPhone"
           @checkPhone="checkPhoneNumber($event,'personalPhone')"
           errorMsg="Wrong personal phone number"
-          :isError="personalPhoneError"
+          @blur="$v.formData.personalPhone.$touch"
+          :isError="$v.formData.personalPhone.$error"
+          :isClean="cleanNumber"
         />
   
         <!-- companyName-input  -->
@@ -88,7 +91,9 @@
           v-model="formData.companyPhone"
           @checkPhone="checkPhoneNumber($event,'companyPhone')"
           errorMsg="Wrong company phone number"
-          :isError="companyPhoneError"
+          @blur="$v.formData.companyName.$touch"
+          :isError="$v.formData.companyName.$error"
+          :isClean="cleanNumber"
         />
   
         <!-- companyName-input  -->
@@ -135,15 +140,28 @@
       <div class="form-footer">
         <button 
           class="form-submit"
+          :class="[{'form-submit--disabled': !isDisabled && !formData.privacy}]"
+          @click.prevent="submit"
         >
           {{btnLabel}}
         </button>
       </div>
     </form>
+
+    <div class="form-success" v-if="isSuccess">
+      <span class="form-success__description">Your Form has been submitted, return to the form? </span>
+        <button 
+          class="form-submit"
+          @click.prevent="isSuccess = false"
+        >
+          return
+        </button>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from '@/plugins/axios'
 import { validationMixin } from 'vuelidate'
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
 
@@ -167,8 +185,9 @@ export default {
 
   data() {
     return {
-      personalPhoneError: false,
-      companyPhoneError: false,
+      isDisabled: false,
+      isSuccess: true,
+      cleanNumber: false,
       formData: {
         firstName: '',
         lastName: '',
@@ -181,7 +200,7 @@ export default {
         job: '',
         password: '',
         confirmPassword: '',
-        privacy: '',
+        privacy: false,
       },
     }
   },
@@ -203,6 +222,14 @@ export default {
       companyName: {
         required,
         minLength: minLength(3),
+      },
+      personalPhone: {
+        required,
+        minLength: minLength(5),
+      },
+      companyPhone: {
+        required,
+        minLength: minLength(5),
       },
       place: {
         required,
@@ -230,6 +257,62 @@ export default {
     checkPhoneNumber(e, param) {
       this.formData[param] = `+${e.code} ${e.phone}`
     },
+
+    resetForm () {
+      Object.keys(this.formData).forEach(param => {
+        if (param === 'type') return
+        if (Array.isArray(this.formData[param])) {
+          this.formData[param] = []
+        } else if (this.formData[param] instanceof Object) {
+          this.formData[param] = {}
+        } else {
+          this.formData[param] = ''
+        }
+      })
+      this.cleanNumber = true
+
+      // if (this.$refs.form) this.$refs.form.reset()
+    },
+
+    submit() {
+      this.$v.$touch()
+      if(this.$v.$error) return
+      console.log('azazazaza')
+
+      const body = new FormData()
+      Object.entries(this.formData).forEach(([param, data]) => {
+          body.append(param, data)
+      })
+
+     this.post(body)
+      // this.resetForm() 
+
+      // setTimeout(() => {
+      //   this.$v.$reset();
+      // }, 4000);
+    },
+
+    async post (body) {
+      console.log('opapapap')
+      this.isDisabled = true
+      try {
+        const { data } = await axios.post('http://httpstat.us/200', body, {
+          headers: {
+            'content-type': 'application/vnd.api+json'
+          }
+        })
+        // this.$emit('success', data)
+
+        console.log(data)
+
+        this.resetForm() 
+        this.$v.$reset();
+      } catch (e) {
+        this.$emit('error')
+      } finally {
+        this.isDisabled = false
+      }
+    }
   }
 }
 </script>
@@ -277,6 +360,32 @@ export default {
     border: none;
     margin-top: 25px;
     margin-left: auto;
+    transition: 0.4s ease;
+
+    @include hover {
+      background-color: #e2b736;
+    }
+
+    &--disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  &-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__description {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .form-submit {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 </style>

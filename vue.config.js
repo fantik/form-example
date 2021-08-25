@@ -1,6 +1,10 @@
 
 module.exports = {
 
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/form-example/'
+    : '/',
+
   // Global styles to all components
   css: {
     loaderOptions: {
@@ -13,6 +17,8 @@ module.exports = {
       }
     }
   },
+
+  
 
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')

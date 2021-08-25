@@ -28,7 +28,7 @@
       </div>
 
       <div class="base-select__phone">
-        <masked-input :mask="mask" ref="phoneMask" v-model="phone" @input="phoneHandler"/>
+        <masked-input :mask="mask" ref="phoneMask" v-model="phone" @input="phoneHandler" @blur="onBlur"/>
       </div>
     </div>
 
@@ -76,6 +76,10 @@
         type: String,
         default: ''
       },
+      isClean: {
+        type: Boolean,
+        default: false
+      }
     },
 
     data() {
@@ -95,7 +99,14 @@
 
     mounted() {
     },
-    
+
+    watch: {
+      'isClean': function(newVal) {
+        if(newVal) {
+          this.$refs.phoneMask.$el.value = ''
+        }
+      }
+    },
     
     methods: {
       setItem(item){
@@ -137,6 +148,10 @@
       phoneHandler() {
         this.$emit('checkPhone', {phone: this.phone, code: this.currentCountry.dialCode, mask: this.mask})
       },
+
+      onBlur () {
+        this.$emit('blur')
+      },
     }
   }
 </script>
@@ -152,15 +167,31 @@
   max-width: 50%;
   position: relative;
   cursor: pointer;
+  transition: 0.3s;
   
   &__wrapper {
+    position: relative;
     width: 100%;
-    margin-bottom: 25px;
+    padding-bottom: 25px;
+
+    &--error {
+      .base-select,
+      .base-select__phone {
+        border-color: $c-red;
+      }
+    }
   }
 
   &__body {
     display: flex;
     width: 100%;
+
+    @include hover {
+      .base-select,
+      .base-select__phone {
+        border-color: $c-black;
+      }
+    }
   }
 
   &__box {
@@ -243,8 +274,14 @@
     border-color: #f2f4f8;
   }
 
-  &--error {
-    border-color: $c-red;
+  &__error {
+    font-family: 'Lato', sans-serif;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    font-size: 14px;
+    line-height: 1.34;
+    color: #FC0202;
   }
 
   &__phone {
@@ -257,6 +294,7 @@
     padding: 0 12px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    transition: 0.3s;
 
     input {
       border: none;

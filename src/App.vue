@@ -14,7 +14,15 @@ export default {
   name: 'App',
   components: {
     FormBlock
-  }
+  },
+
+  async mounted () {
+
+    const hasHover = window.matchMedia('(hover: hover)').matches
+    if (hasHover) {
+      document.documentElement.classList.add('has-hover')
+    }
+  },
 }
 </script>
 
