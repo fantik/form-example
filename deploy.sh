@@ -18,6 +18,6 @@ git commit -m 'deploy'
 
 
 # если вы публикуете по адресу https://<USERNAME>.github.io/<REPO>
- git push -f git@github.com:fantik/form-example.git master:gh-pages
+ git push -f git@github.com:fantik/form-example.git main:gh-pages
 
 cd -
