@@ -1,0 +1,64 @@
+{
+  "countries": [
+    {
+      "code": "af",
+      "dialCode": "93",
+      "country": "Afghanistan",
+      "placeholder": "070 123 4567"
+    },
+    {
+      "code": "ao",
+      "dialCode": "244",
+      "country": "Angola",
+      "placeholder": "923 123 456"
+    },
+    {
+      "code": "au",
+      "dialCode": "61",
+      "country": "Australia",
+      "placeholder": "0412 345 678"
+    },
+    {
+      "code": "be",
+      "dialCode": "32",
+      "country": "Belgium",
+      "placeholder": "0470 12 34 56"
+    },
+    {
+      "code": "cn",
+      "dialCode": "86",
+      "country": "China",
+      "placeholder": "131 2345 6789"
+    },
+    {
+      "code": "cy",
+      "dialCode": "357",
+      "country": "Cyprus",
+      "placeholder": "96 123456"
+    },
+    {
+      "code": "it",
+      "dialCode": "39",
+      "country": "Italy",
+      "placeholder": "312 345 6789"
+    },
+    {
+      "code": "ph",
+      "dialCode": "63",
+      "country": "Philippines",
+      "placeholder": "0905 123 4567"
+    },
+    {
+      "code": "us",
+      "dialCode": "1",
+      "country": "United States",
+      "placeholder": "(201) 555-0123"
+    },
+    {
+      "code": "ua",
+      "dialCode": "380",
+      "country": "Ukraine",
+      "placeholder": "050 123 4567"
+    }
+  ]
+}

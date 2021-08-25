@@ -1,0 +1,162 @@
+html,
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: bold;
+  line-height: 1.08;
+  text-transform: uppercase;
+
+  @include tablet {
+    font-size: 60px;
+  }
+
+  @include mobile {
+    font-size: 30px;
+  }
+}
+
+h2 {
+  margin-bottom: 40px;
+  font-size: 34px;
+  font-weight: normal;
+  line-height: 1.32;
+
+  @include mobile {
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
+
+p,
+.p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: $c-black;
+
+  @include mobile {
+    font-size: 13px;
+    line-height: 1.42;
+  }
+}
+
+
+.custom-editor {
+  p {
+    font-size: 24px;
+    line-height: 1.34;
+    color: $c-black;
+  }
+
+  u {
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+    line-height: 1.34;
+    color: $c-orange;
+    text-decoration: none;
+    cursor: pointer;
+
+    @include mobile {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    &::before {
+      position: absolute;
+      left: 0;
+      bottom: 100%;
+      width: 311px;
+      opacity: 0;
+      z-index: 2;
+      visibility: hidden;
+      pointer-events: none;
+      transition: 0.5s;
+      content: " " attr(data-text) "";
+      font-size: 14px;
+      line-height: 1.34;
+      color: $c-black;
+      background-color: $c-white;
+      box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
+      padding: 10px 11px 10px 16px;
+      box-sizing: content-box;
+
+      @include tablet {
+        left: auto;
+        right: 0;
+      }
+
+      @include mobile {
+        width: 200px;
+        font-size: 12px;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transition: 0.5s;
+      background-color: $c-orange;
+      content: "";
+    }
+
+    &:hover::before {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+    }
+
+    @include hover {
+      &::after {
+        opacity: 0;
+      }
+    }
+
+    &.show {
+      &::before {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+      }
+    
+      &::after {
+        opacity: 0;
+      }
+    }
+  }
+
+  strong {
+    display: block;
+    font-size: 54px;
+    line-height: 1.34;
+    color: $c-orange !important;
+
+    @include tablet {
+      font-size: 50px;
+    }
+
+    @include mobile {
+      font-size: 24px;
+      line-height: 1;
+    }
+  }
+}

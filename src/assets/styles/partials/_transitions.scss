@@ -1,0 +1,102 @@
+// better experience with transition mode="out-in"
+
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+.fade-slow {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 1s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+.slide-from-top {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+}
+
+.slide-from-top-short {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
+.slide-to-right {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.3s;
+  }
+
+  &-enter {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+.slide-to-left {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.3s;
+  }
+
+  &-enter {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+.drop {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.1s;
+  }
+
+  &-enter {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+}

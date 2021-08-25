@@ -1,0 +1,112 @@
+@mixin object-fit {
+  object-fit: contain;
+  /* stylelint-disable */
+  font-family: "object-fit: contain;"; // fix IE
+  /* stylelint-enable */
+}
+
+@mixin object-fit-cover {
+  object-fit: cover;
+  /* stylelint-disable */
+  font-family: "object-fit: cover;"; // fix IE
+  /* stylelint-enable */
+}
+
+@mixin no-scrollbar() {
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+/* stylelint-disable */
+@mixin custom-scrollbar($hide: false) {
+  @if ($hide == true) {
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0; // hide horizontal
+    }
+  }
+
+  @else {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 0;
+    }
+
+    scrollbar-color: #d1cfd1;
+    scrollbar-width: 6px;
+
+    &::-webkit-scrollbar-track {
+      background-color: #f4f3f4;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #d1cfd1;
+      opacity: 0.2;
+    }
+  }
+}
+
+
+@mixin hover {
+  .has-hover &:hover {
+    @content;
+  }
+}
+
+@mixin aspect-ratio($arg) {
+  position: relative;
+
+  @if type-of($arg) == 'map' {
+    &::before {
+      display: block;
+      content: '';
+
+      @each $breakpoint, $value in $arg {
+        @include respUp($breakpoint) {
+          padding-top: percentage(1/$value);
+        }
+      }
+    }
+  }
+
+  @else if is-number($arg) {
+    &::before {
+      display: block;
+      padding-top: percentage(1/$arg);
+      content: '';
+    }
+  }
+
+  @else {
+    @error "pseudo-ratio mixin: Argument must be map or number";
+  }
+}
+
+
+@mixin placeholder() {
+  &::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    @content;
+  }
+
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    /* IE 10+ */
+    @content;
+  }
+
+  &:-moz-placeholder {
+    /* Firefox 18- */
+    @content;
+  }
+}

@@ -1,0 +1,23 @@
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  border: 0 !important;
+}
+
+.simple-link {
+  font-family: "NotoSans", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+
+  @include mobile {
+    font-size: 13px;
+  }
+
+  &::after {
+    display: none;
+  }
+}

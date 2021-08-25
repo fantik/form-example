@@ -1,0 +1,40 @@
+$s: 320px;
+$m: 768px;
+$l: 1280px;
+$xl: 1600px;
+
+@mixin mobileXs {
+  @media only screen and (max-width: $s) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media only screen and (max-width: $m - 1) {
+    @content;
+  }
+}
+
+@mixin notMobile {
+  @media only screen and (min-width: $m) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (max-width: $l - 1) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (max-width: $xl - 1) {
+    @content;
+  }
+}
+
+@mixin desktopLarge {
+  @media only screen and (min-width: $xl) {
+    @content;
+  }
+}

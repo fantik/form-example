@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  @include tablet {
+    padding: 0 24px;
+  }
+
+  @include mobile {
+    padding: 0 16px;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+}
+
+#app {
+  width: 100%;
+  position: relative;
+}
