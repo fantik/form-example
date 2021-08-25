@@ -137,7 +137,7 @@
         this.info = param
       },
 
-      checkWeakness(str) {
+      checkWeakness() {
         this.resetWeakness('weak')
         // eslint-disable-next-line
       //   if (/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(str)) {
