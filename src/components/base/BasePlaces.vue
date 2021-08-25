@@ -44,6 +44,7 @@
 
 <script>
 import axios from '@/plugins/axios'
+import debounce from 'lodash/debounce'
 import ClickOutside from 'vue-click-outside'
 
   const TOKEN = 'AIzaSyBWpKHiyXYW4A4K789n0hTBNLJB-N1bmIE'
@@ -99,10 +100,14 @@ import ClickOutside from 'vue-click-outside'
       },
     },
 
+    mounted() {
+      console.log(debounce)
+    },
+
 
     watch: {
       value() {
-        this.value.length > 0 ? this.getPlaces(this.value) : this.items = null
+        this.value.length > 0 ? this.callDebouncePlaces(this.value) : this.items = null
       },
     },
 
@@ -138,6 +143,10 @@ import ClickOutside from 'vue-click-outside'
         this.items = {...this.items, ...data.predictions}
 
       },
+
+      callDebouncePlaces:debounce(function(place) {
+        this.getPlaces(place)
+      }, 500),
 
       closeDropdown() {
         this.items = null
