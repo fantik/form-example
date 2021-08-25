@@ -137,15 +137,15 @@
         this.info = param
       },
 
-      checkWeakness() {
+      checkWeakness(str) {
         this.resetWeakness('weak')
         // eslint-disable-next-line
-      //   if (/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(str)) {
-      //     this.resetWeakness('strong')
-      // // eslint-disable-next-line
-      //   } else if(/[A-Z]/.test(str)) {
-      //     this.resetWeakness('medium')
-      //   }
+        if (/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(str)) {
+          this.resetWeakness('strong')
+      // eslint-disable-next-line
+        } else if(/[A-Z]/.test(str)) {
+          this.resetWeakness('medium')
+        }
       },
 
       changeTypeField() {

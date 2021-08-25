@@ -197,7 +197,7 @@
       }
 
       @include hover {
-        border-color: $c-black;
+        // border-color: $c-black;
       }
 
 

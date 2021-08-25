@@ -263,21 +263,18 @@ export default {
         if (param === 'type') return
         if (Array.isArray(this.formData[param])) {
           this.formData[param] = []
-        } else if (this.formData[param] instanceof Object) {
-          this.formData[param] = {}
+        } else if (typeof this.formData[param] === 'boolean') {
+          this.formData[param] = false
         } else {
           this.formData[param] = ''
         }
       })
       this.cleanNumber = true
-
-      // if (this.$refs.form) this.$refs.form.reset()
     },
 
     submit() {
       this.$v.$touch()
       if(this.$v.$error) return
-      console.log('azazazaza')
 
       const body = new FormData()
       Object.entries(this.formData).forEach(([param, data]) => {
@@ -285,25 +282,22 @@ export default {
       })
 
      this.post(body)
-      // this.resetForm() 
-
-      // setTimeout(() => {
-      //   this.$v.$reset();
-      // }, 4000);
     },
 
     async post (body) {
-      console.log('opapapap')
       this.isDisabled = true
       try {
         const { data } = await axios.post('http://httpstat.us/200', body, {
           headers: {
-            'content-type': 'application/vnd.api+json'
+            'content-type': 'application/vnd.api+json',
+            'Access-Control-Allow-Origin': '*'
+
           }
         })
-        // this.$emit('success', data)
 
-        console.log(data)
+        if (data.code == 200) {
+          this.isSuccess = true
+        }
 
         this.resetForm() 
         this.$v.$reset();
